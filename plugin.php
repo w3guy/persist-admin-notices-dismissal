@@ -1,6 +1,6 @@
 <?php
 /**
- * Persist Dismissible Admin Notices
+ * Persist Admin notice Dismissals
  *
  * Copyright (C) 2016  Agbonghama Collins <http://w3guy.com>
  *
@@ -17,13 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package Persist Dismissible Admin Notices
+ * @package Persist Admin notice Dismissals
  * @author Agbonghama Collins
  * @license http://www.gnu.org/licenses GNU General Public License
  */
 
 /*
- * Plugin Name: Persist Dismissible Admin Notices
+ * Plugin Name: Persist Admin notice Dismissals
  * Plugin URI: http://w3guy.com/wordpress-admin-notices-dismissible/
  * Description: Simple plugin that persists dismissal of admin notices across admin pages in WordPress dashboard
  * Version: 1.0
