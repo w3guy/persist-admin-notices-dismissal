@@ -36,9 +36,45 @@ add_action( 'admin_notices', 'sample_admin_notice__success' );
 
 **Note:** the `data-dismissible` attribute must have a unique hypen separated text which will serve as the key or option name used by the Options API to persist the state to the database. Don't understand, see the following examples.
 
-### Examples
+#### Examples
 Say you have two notices displayed when certain actions are triggered; firsly, choose a string to uniquely identify them. E.g `notice-one` and `notice-two`
 
 To make the first notice never appear forever when dismissed, its `data-dismissible` attribute will be `data-dismissible="notice-one-forever"` where `notice-one` is its unique identifier.
 
 To make the second notice only hidden for 2 days, its `data-dismissible` attribute will be `data-dismissible="notice-two-2"` where `notice-one` is its unique identifier and the `2` the number of days it will be hidden.
+
+To actually make the dismissed admin notice not to appear, use the `is_admin_notice_active()` function like so:
+
+
+```
+function sample_admin_notice__success1() {
+if ( ! is_admin_notice_active( 'notice-one-forever' ) ) {
+		return;
+	}
+	
+    ?>
+    <div data-dismissible="notice-one-forever" class="updated notice notice-success is-dismissible">
+        <p><?php _e( 'Done 1!', 'sample-text-domain' ); ?></p>
+    </div>
+    <?php
+}
+add_action( 'admin_notices', 'sample_admin_notice__success1' );
+```
+
+```
+function sample_admin_notice__success2() {
+if ( ! is_admin_notice_active( 'notice-two-2' ) ) {
+		return;
+	}
+	
+    ?>
+    <div data-dismissible="notice-two-2" class="updated notice notice-success is-dismissible">
+        <p><?php _e( 'Done 2!', 'sample-text-domain' ); ?></p>
+    </div>
+    <?php
+}
+add_action( 'admin_notices', 'sample_admin_notice__success2' );
+```
+
+
+Cool beans. Isn't it?
