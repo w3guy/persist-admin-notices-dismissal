@@ -17,7 +17,8 @@
             data = {
                 'action': 'dismiss_admin_notice',
                 'option_name': option_name,
-                'dismissible_length': dismissible_length
+                'dismissible_length': dismissible_length,
+                'nonce': dismissible_notice.nonce
             };
             
             // We can also pass the url value separately from ajaxurl for front end AJAX implementations
