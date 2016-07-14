@@ -33,30 +33,40 @@
  */
 
 
-add_action( 'admin_enqueue_scripts', function () {
-	wp_enqueue_script( 'dismissible-notices',
-		plugin_dir_url( __FILE__ ) . 'dismiss-notice.js',
-		[ 'jquery', 'common' ],
-		false,
-		true
-	);
-} );
+add_action('admin_enqueue_scripts', function () {
+    wp_enqueue_script('dismissible-notices',
+        plugin_dir_url(__FILE__) . 'dismiss-notice.js',
+        ['jquery', 'common'],
+        false,
+        true
+    );
+
+    wp_localize_script( 'dismissible-notices', 'dismissible_notice',
+        array(
+            'nonce'     => wp_create_nonce( 'dismissible-notice' ),
+        )
+    );
+});
 
 
 /**
  * Handles Ajax request to persist notice dismissal.
  */
-add_action( 'wp_ajax_dismiss_admin_notice', function () {
-	$option_name        = sanitize_text_field( $_POST['option_name'] );
-	$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
+add_action('wp_ajax_dismiss_admin_notice', function () {
+    $option_name        = sanitize_text_field($_POST['option_name']);
+    $dismissible_length = sanitize_text_field($_POST['dismissible_length']);
 
-	if ( $dismissible_length != 'forever' ) {
-		$dismissible_length = time() + strtotime( absint( $dismissible_length ) . 'days' );
-	}
+    if ($dismissible_length != 'forever') {
+        $dismissible_length = time() + strtotime(absint($dismissible_length) . 'days');
+    }
 
-	add_option( $option_name, $dismissible_length );
-	wp_die();
-} );
+    if (wp_verify_nonce($_REQUEST['nonce'], 'pp-dismissible-notice') && strpos($option_name, 'data-') !== false) {
+        add_option($option_name, $dismissible_length);
+    }
+
+    add_option($option_name, $dismissible_length);
+    wp_die();
+});
 
 
 /**
@@ -66,18 +76,19 @@ add_action( 'wp_ajax_dismiss_admin_notice', function () {
  *
  * @return bool
  */
-function is_admin_notice_active( $arg ) {
-	$array       = explode( '-', $arg );
-	$length      = array_pop( $array );
-	$option_name = implode( '-', $array );
+function is_admin_notice_active($arg)
+{
+    $array       = explode('-', $arg);
+    $length      = array_pop($array);
+    $option_name = implode('-', $array);
 
-	$db_record = get_option( $option_name );
+    $db_record = get_option($option_name);
 
-	if ( $db_record == 'forever' ) {
-		return false;
-	} elseif ( absint( $db_record ) >= time() ) {
-		return false;
-	} else {
-		return true;
-	}
+    if ($db_record == 'forever') {
+        return false;
+    } elseif (absint($db_record) >= time()) {
+        return false;
+    } else {
+        return true;
+    }
 }
