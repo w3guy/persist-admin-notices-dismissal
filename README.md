@@ -1,4 +1,6 @@
 # Persist Admin notice Dismissals
+[![Latest Stable Version](https://poser.pugx.org/collizo4sky/persist-admin-notices-dismissal/v/stable)](https://packagist.org/packages/collizo4sky/persist-admin-notices-dismissal)
+[![Total Downloads](https://poser.pugx.org/collizo4sky/persist-admin-notices-dismissal/downloads)](https://packagist.org/packages/collizo4sky/persist-admin-notices-dismissal)
 
 Simple plugin that persists the dismissal of admin notices across pages in WordPress dashboard.
 
