@@ -1,6 +1,6 @@
 <?php
 /**
- * Persist Admin notice Dismissals
+ * Persist Admin notices Dismissal
  *
  * Copyright (C) 2016  Agbonghama Collins <http://w3guy.com>
  *
@@ -17,19 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package Persist Admin notice Dismissals
+ * @package Persist Admin notices Dismissal
  * @author Agbonghama Collins
  * @license http://www.gnu.org/licenses GNU General Public License
- */
-
-/*
- * Plugin Name: Persist Admin notice Dismissals
- * Plugin URI: http://w3guy.com/wordpress-admin-notices-dismissible/
- * Description: Simple plugin that persists dismissal of admin notices across admin pages in WordPress dashboard
- * Version: 1.0
- * Author: Agbonghama Collins
- * Author URI: http://w3guy.com
- * License: GPL3
  */
 
 
@@ -41,16 +31,16 @@ add_action('admin_enqueue_scripts', function () {
         true
     );
 
-    wp_localize_script( 'dismissible-notices', 'dismissible_notice',
+    wp_localize_script('dismissible-notices', 'dismissible_notice',
         array(
-            'nonce'     => wp_create_nonce( 'dismissible-notice' ),
+            'nonce' => wp_create_nonce('dismissible-notice'),
         )
     );
 });
 
 
 /**
- * Handles Ajax request to persist notice dismissal.
+ * Handles Ajax request to persist notices dismissal.
  */
 add_action('wp_ajax_dismiss_admin_notice', function () {
     $option_name        = sanitize_text_field($_POST['option_name']);
