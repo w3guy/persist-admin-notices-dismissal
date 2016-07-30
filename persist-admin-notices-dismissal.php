@@ -26,7 +26,6 @@
 add_action('admin_enqueue_scripts', function () {
     wp_enqueue_script('dismissible-notices',
         plugin_dir_url(__FILE__) . 'dismiss-notice.js',
-        ['jquery', 'common'],
         false,
         true
     );
@@ -38,6 +37,7 @@ add_action('admin_enqueue_scripts', function () {
     );
 });
 
+					array( 'jquery', 'common' ),
 
 /**
  * Handles Ajax request to persist notices dismissal.
