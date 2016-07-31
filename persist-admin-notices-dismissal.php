@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Don't run during heartbeat.
  */
 if ( isset( $_REQUEST['action'] ) && 'heartbeat' === $_REQUEST['action'] ) {
-	return false;
+	return;
 }
 
 if ( ! class_exists( 'PAnD' ) ) {
