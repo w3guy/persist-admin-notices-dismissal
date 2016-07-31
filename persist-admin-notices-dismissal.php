@@ -25,6 +25,9 @@
 
 if ( ! class_exists( 'PAnD' ) ) {
 
+	/**
+	 * Class PAnD
+	 */
 	class PAnD {
 
 		/**
