@@ -31,9 +31,53 @@ if ( ! class_exists( 'PAnD' ) ) {
 	class PAnD {
 
 		/**
+		 * PAnD constructor.
+		 */
+		public function __construct() {
+			add_action( 'admin_enqueue_scripts', array( $this, 'load_script' ) );
+			add_action( 'wp_ajax_dismiss_admin_notice', array( $this, 'dismiss_admin_notice' ) );
+		}
+
+		/**
+		 * Enqueue javascript and variables.
+		 */
+		public function load_script() {
+			wp_enqueue_script( 'dismissible-notices',
+				plugin_dir_url( __FILE__ ) . 'dismiss-notice.js',
+				array( 'jquery', 'common' ),
+				false,
+				true
+			);
+
+			wp_localize_script( 'dismissible-notices', 'dismissible_notice',
+				array(
+					'nonce' => wp_create_nonce( 'PAnD-dismissible-notice' ),
+				)
+			);
+		}
+
+		/**
+		 * Handles Ajax request to persist notices dismissal.
+		 */
+		public function dismiss_admin_notice() {
+			$option_name        = sanitize_text_field( $_POST['option_name'] );
+			$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
+
+			if ( 'forever' != $dismissible_length ) {
+				$dismissible_length = time() + strtotime( absint( $dismissible_length ) . 'days' );
+			}
+
+			if ( is_integer( wp_verify_nonce( $_REQUEST['nonce'], 'PAnD-dismissible-notice' ) ) && ( false !== strpos( $option_name, 'data-' ) ) ) {
+				add_option( $option_name, $dismissible_length );
+			}
+
+			wp_die();
+		}
+
+		/**
 		 * Is admin notice active?
 		 *
-		 * @param string $arg
+		 * @param string $arg data-dismissible content of notice.
 		 *
 		 * @return bool
 		 */
@@ -57,38 +101,4 @@ if ( ! class_exists( 'PAnD' ) ) {
 
 }
 
-/**
- * Enqueue javascript and register tags.
- */
-add_action( 'admin_enqueue_scripts', function () {
-	wp_enqueue_script( 'dismissible-notices',
-		plugin_dir_url( __FILE__ ) . 'dismiss-notice.js',
-		array( 'jquery', 'common' ),
-		false,
-		true
-	);
-
-	wp_localize_script( 'dismissible-notices', 'dismissible_notice',
-		array(
-			'nonce' => wp_create_nonce( 'PAnD-dismissible-notice' ),
-		)
-	);
-} );
-
-/**
- * Handles Ajax request to persist notices dismissal.
- */
-add_action( 'wp_ajax_dismiss_admin_notice', function () {
-	$option_name        = sanitize_text_field( $_POST['option_name'] );
-	$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
-
-	if ( 'forever' != $dismissible_length ) {
-		$dismissible_length = time() + strtotime( absint( $dismissible_length ) . 'days' );
-	}
-
-	if ( is_integer( wp_verify_nonce( $_REQUEST['nonce'], 'PAnD-dismissible-notice' ) ) && ( false !== strpos( $option_name, 'data-' ) ) ) {
-		add_option( $option_name, $dismissible_length );
-	}
-
-	wp_die();
-} );
+new PAnD();
