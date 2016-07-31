@@ -24,11 +24,11 @@ Say you have the following markup as your admin notice,
 
 ```
 function sample_admin_notice__success() {
-?>
-<div class="updated notice notice-success is-dismissible">
-    <p><?php _e( 'Done!', 'sample-text-domain' ); ?></p>
-</div>
-<?php
+	?>
+	<div class="updated notice notice-success is-dismissible">
+    	<p><?php _e( 'Done!', 'sample-text-domain' ); ?></p>
+	</div>
+	<?php
 }
 add_action( 'admin_notices', 'sample_admin_notice__success' );
 ```
@@ -38,11 +38,11 @@ To make it hidden forever when dismissed, add the following data attribute `data
 
 ```
 function sample_admin_notice__success() {
-    ?>
-    <div data-dismissible="data-disable-done-notice-forever" class="updated notice notice-success is-dismissible">
-        <p><?php _e( 'Done!', 'sample-text-domain' ); ?></p>
-    </div>
-    <?php
+	?>
+	<div data-dismissible="data-disable-done-notice-forever" class="updated notice notice-success is-dismissible">
+		<p><?php _e( 'Done!', 'sample-text-domain' ); ?></p>
+	</div>
+	<?php
 }
 add_action( 'admin_notices', 'sample_admin_notice__success' );
 ```
@@ -63,15 +63,15 @@ To actually make the dismissed admin notice not to appear, use the `is_admin_not
 ```
 function sample_admin_notice__success1() {
 	$PAnD = new PAnD();
-    if ( ! $PAnD->is_admin_notice_active( 'data-notice-one-forever' ) ) {
-        return;
-    }
+	if ( ! $PAnD->is_admin_notice_active( 'data-notice-one-forever' ) ) {
+		return;
+	}
 
-    ?>
-    <div data-dismissible="data-notice-one-forever" class="updated notice notice-success is-dismissible">
-        <p><?php _e( 'Done 1!', 'sample-text-domain' ); ?></p>
-    </div>
-    <?php
+	?>
+	<div data-dismissible="data-notice-one-forever" class="updated notice notice-success is-dismissible">
+		<p><?php _e( 'Done 1!', 'sample-text-domain' ); ?></p>
+	</div>
+	<?php
 }
 add_action( 'admin_notices', 'sample_admin_notice__success1' );
 ```
@@ -80,14 +80,14 @@ add_action( 'admin_notices', 'sample_admin_notice__success1' );
 function sample_admin_notice__success2() {
 	$PAnD = new PAnD();
 	if ( ! $PAnD->is_admin_notice_active( 'data-notice-two-2' ) ) {
-        return;
-    }
+		return;
+	}
 
 	?>
 	<div data-dismissible="data-notice-two-2" class="updated notice notice-success is-dismissible">
-        <p><?php _e( 'Done 2!', 'sample-text-domain' ); ?></p>
-    </div>
-    <?php
+		<p><?php _e( 'Done 2!', 'sample-text-domain' ); ?></p>
+	</div>
+	<?php
 }
 add_action( 'admin_notices', 'sample_admin_notice__success2' );
 ```
