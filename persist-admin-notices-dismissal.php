@@ -23,6 +23,20 @@
  * @license http://www.gnu.org/licenses GNU General Public License
  */
 
+/**
+ * Exit if called directly.
+ */
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
+/**
+ * Don't run during heartbeat.
+ */
+if ( isset( $_REQUEST['action'] ) && 'heartbeat' === $_REQUEST['action'] ) {
+	return false;
+}
+
 if ( ! class_exists( 'PAnD' ) ) {
 
 	/**
