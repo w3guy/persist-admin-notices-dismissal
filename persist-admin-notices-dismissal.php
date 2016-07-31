@@ -20,7 +20,9 @@
  *
  * @package Persist Admin notices Dismissal
  * @author  Agbonghama Collins
+ * @author  Andy Fragen
  * @license http://www.gnu.org/licenses GNU General Public License
+ * @version 1.0.0
  */
 
 /**
