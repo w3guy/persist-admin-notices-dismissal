@@ -51,7 +51,7 @@ add_action( 'admin_notices', 'sample_admin_notice__success' );
 **Note:** the `data-dismissible` attribute must have a unique hyphen separated text prefixed by `data-` which will serve as the key or option name used by the Options API to persist the state to the database. Don't understand, see the following examples.
 
 #### Examples
-Say you have two notices displayed when certain actions are triggered; firstly, choose a string to uniquely identify theme, e.g. `data-notice-one` and `data-notice-two`
+Say you have two notices displayed when certain actions are triggered; firstly, choose a string to uniquely identify them, e.g. `data-notice-one` and `data-notice-two`
 
 To make the first notice never appear forever when dismissed, its `data-dismissible` attribute will be `data-dismissible="data-notice-one-forever"` where `data-notice-one` is its unique identifier.
 
