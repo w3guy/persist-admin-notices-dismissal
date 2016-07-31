@@ -47,25 +47,6 @@ if ( ! class_exists( 'PAnD' ) ) {
 				);
 			} );
 
-
-			/**
-			 * Handles Ajax request to persist notices dismissal.
-			 */
-			add_action( 'wp_ajax_dismiss_admin_notice', function () {
-				$option_name        = sanitize_text_field( $_POST['option_name'] );
-				$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
-
-				if ( 'forever' != $dismissible_length ) {
-					$dismissible_length = time() + strtotime( absint( $dismissible_length ) . 'days' );
-				}
-
-				if ( wp_verify_nonce( $_REQUEST['nonce'], 'pp-dismissible-notice' ) && false !== strpos( $option_name, 'data-' ) ) {
-					add_option( $option_name, $dismissible_length );
-				}
-
-				add_option( $option_name, $dismissible_length );
-				wp_die();
-			} );
 		}
 
 		/**
@@ -93,5 +74,23 @@ if ( ! class_exists( 'PAnD' ) ) {
 
 	}
 
-	new PAnD();
 }
+
+/**
+ * Handles Ajax request to persist notices dismissal.
+ */
+add_action( 'wp_ajax_dismiss_admin_notice', function () {
+	$option_name        = sanitize_text_field( $_POST['option_name'] );
+	$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
+
+	if ( 'forever' != $dismissible_length ) {
+		$dismissible_length = time() + strtotime( absint( $dismissible_length ) . 'days' );
+	}
+
+	if ( wp_verify_nonce( $_REQUEST['nonce'], 'pp-dismissible-notice' ) && false !== strpos( $option_name, 'data-' ) ) {
+		add_option( $option_name, $dismissible_length );
+	}
+
+	add_option( $option_name, $dismissible_length );
+	wp_die();
+} );
