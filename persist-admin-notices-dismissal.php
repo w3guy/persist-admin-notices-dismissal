@@ -70,7 +70,7 @@ add_action( 'admin_enqueue_scripts', function () {
 
 	wp_localize_script( 'dismissible-notices', 'dismissible_notice',
 		array(
-			'nonce' => wp_create_nonce( 'dismissible-notice' ),
+			'nonce' => wp_create_nonce( 'PAnD-dismissible-notice' ),
 		)
 	);
 } );
@@ -86,7 +86,7 @@ add_action( 'wp_ajax_dismiss_admin_notice', function () {
 		$dismissible_length = time() + strtotime( absint( $dismissible_length ) . 'days' );
 	}
 
-	if ( is_integer( wp_verify_nonce( $_REQUEST['nonce'], 'dismissible-notice' ) ) && ( false !== strpos( $option_name, 'data-' ) ) ) {
+	if ( is_integer( wp_verify_nonce( $_REQUEST['nonce'], 'PAnD-dismissible-notice' ) ) && ( false !== strpos( $option_name, 'data-' ) ) ) {
 		add_option( $option_name, $dismissible_length );
 	}
 
