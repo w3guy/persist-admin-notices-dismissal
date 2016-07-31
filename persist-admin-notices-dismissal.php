@@ -83,10 +83,9 @@ add_action( 'wp_ajax_dismiss_admin_notice', function () {
 		$dismissible_length = time() + strtotime( absint( $dismissible_length ) . 'days' );
 	}
 
-	if ( wp_verify_nonce( $_REQUEST['nonce'], 'pp-dismissible-notice' ) && false !== strpos( $option_name, 'data-' ) ) {
+	if ( is_integer( wp_verify_nonce( $_REQUEST['nonce'], 'dismissible-notice' ) ) && ( false !== strpos( $option_name, 'data-' ) ) ) {
 		add_option( $option_name, $dismissible_length );
 	}
 
-	add_option( $option_name, $dismissible_length );
 	wp_die();
 } );
