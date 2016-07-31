@@ -8,14 +8,14 @@ Simple plugin that persists the dismissal of admin notices across pages in WordP
 
 Run `composer require collizo4sky/persist-admin-notices-dismissal`
 
-Alternatively, clone or download this repo and include/require the `persist-admin-notices-dismissal.php` file like so
+Alternatively, clone or download this repo into the `vendor/` folder in your plugin, and include/require the `persist-admin-notices-dismissal.php` file like so
 
 ```
-require 'persist-admin-notices-dismissal.php'
+include  __DIR__ . '/vendor/persist-admin-notices-dismissal/persist-admin-notices-dismissal.php'
 ```
 
 ## How to Use
-Firstly, install and activate this library as a plugin by cloning / downloading to your WordPress `wp-content/plugins` directory.
+Firstly, install and activate this library within a plugin.
 
 Say you have the following markup as your admin notice
 
@@ -46,10 +46,10 @@ add_action( 'admin_notices', 'sample_admin_notice__success' );
 ```
 
 
-**Note:** the `data-dismissible` attribute must have a unique hypen separated text prefixed by `data-` which will serve as the key or option name used by the Options API to persist the state to the database. Don't understand, see the following examples.
+**Note:** the `data-dismissible` attribute must have a unique hyphen separated text prefixed by `data-` which will serve as the key or option name used by the Options API to persist the state to the database. Don't understand, see the following examples.
 
 #### Examples
-Say you have two notices displayed when certain actions are triggered; firsly, choose a string to uniquely identify them. E.g `data-notice-one` and `data-notice-two`
+Say you have two notices displayed when certain actions are triggered; firstly, choose a string to uniquely identify theme, e.g. `data-notice-one` and `data-notice-two`
 
 To make the first notice never appear forever when dismissed, its `data-dismissible` attribute will be `data-dismissible="data-notice-one-forever"` where `data-notice-one` is its unique identifier.
 
@@ -60,7 +60,8 @@ To actually make the dismissed admin notice not to appear, use the `is_admin_not
 
 ```
 function sample_admin_notice__success1() {
-    if ( ! is_admin_notice_active( 'data-notice-one-forever' ) ) {
+	$PAnD = new PAnD();
+    if ( ! $PAnD->is_admin_notice_active( 'data-notice-one-forever' ) ) {
         return;
     }
 
@@ -75,12 +76,13 @@ add_action( 'admin_notices', 'sample_admin_notice__success1' );
 
 ```
 function sample_admin_notice__success2() {
-    if ( ! is_admin_notice_active( 'data-notice-two-2' ) ) {
+	$PAnD = new PAnD();
+	if ( ! $PAnD->is_admin_notice_active( 'data-notice-two-2' ) ) {
         return;
     }
 
-    ?>
-    <div data-dismissible="data-notice-two-2" class="updated notice notice-success is-dismissible">
+	?>
+	<div data-dismissible="data-notice-two-2" class="updated notice notice-success is-dismissible">
         <p><?php _e( 'Done 2!', 'sample-text-domain' ); ?></p>
     </div>
     <?php
