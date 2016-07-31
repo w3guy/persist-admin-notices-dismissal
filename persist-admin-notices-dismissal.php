@@ -27,28 +27,6 @@ if ( ! class_exists( 'PAnD' ) ) {
 
 	class PAnD {
 
-		public function __construct() {
-
-			/**
-			 * Enqueue javascript and register tags.
-			 */
-			add_action( 'admin_enqueue_scripts', function () {
-				wp_enqueue_script( 'dismissible-notices',
-					plugin_dir_url( __FILE__ ) . 'dismiss-notice.js',
-					array( 'jquery', 'common' ),
-					false,
-					true
-				);
-
-				wp_localize_script( 'dismissible-notices', 'dismissible_notice',
-					array(
-						'nonce' => wp_create_nonce( 'dismissible-notice' ),
-					)
-				);
-			} );
-
-		}
-
 		/**
 		 * Is admin notice active?
 		 *
@@ -75,6 +53,24 @@ if ( ! class_exists( 'PAnD' ) ) {
 	}
 
 }
+
+/**
+ * Enqueue javascript and register tags.
+ */
+add_action( 'admin_enqueue_scripts', function () {
+	wp_enqueue_script( 'dismissible-notices',
+		plugin_dir_url( __FILE__ ) . 'dismiss-notice.js',
+		array( 'jquery', 'common' ),
+		false,
+		true
+	);
+
+	wp_localize_script( 'dismissible-notices', 'dismissible_notice',
+		array(
+			'nonce' => wp_create_nonce( 'dismissible-notice' ),
+		)
+	);
+} );
 
 /**
  * Handles Ajax request to persist notices dismissal.
