@@ -60,7 +60,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 		public function load_script() {
 			wp_enqueue_script(
 				'dismissible-notices',
-				plugin_url( 'dismiss-notice.js', __FILE__ ),
+				plugins_url( 'dismiss-notice.js', __FILE__ ),
 				array( 'jquery', 'common' ),
 				false,
 				true
