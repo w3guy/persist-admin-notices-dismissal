@@ -58,14 +58,17 @@ if ( ! class_exists( 'PAnD' ) ) {
 		 * Enqueue javascript and variables.
 		 */
 		public function load_script() {
-			wp_enqueue_script( 'dismissible-notices',
+			wp_enqueue_script(
+				'dismissible-notices',
 				plugin_url( 'dismiss-notice.js', __FILE__ ),
 				array( 'jquery', 'common' ),
 				false,
 				true
 			);
 
-			wp_localize_script( 'dismissible-notices', 'dismissible_notice',
+			wp_localize_script(
+				'dismissible-notices',
+				'dismissible_notice',
 				array(
 					'nonce' => wp_create_nonce( 'PAnD-dismissible-notice' ),
 				)
