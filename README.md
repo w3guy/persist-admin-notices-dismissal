@@ -70,8 +70,7 @@ To actually make the dismissed admin notice not to appear, use the `is_admin_not
 
 ```
 function sample_admin_notice__success1() {
-	$PAnD = new PAnD();
-	if ( ! $PAnD->is_admin_notice_active( 'data-notice-one-forever' ) ) {
+	if ( ! PAnD::instance()->is_admin_notice_active( 'data-notice-one-forever' ) ) {
 		return;
 	}
 
@@ -88,8 +87,7 @@ add_action( 'admin_notices', 'sample_admin_notice__success1' );
 
 ```
 function sample_admin_notice__success2() {
-	$PAnD = new PAnD();
-	if ( ! $PAnD->is_admin_notice_active( 'data-notice-two-2' ) ) {
+	if ( ! PAnD::instance()->is_admin_notice_active( 'data-notice-two-2' ) ) {
 		return;
 	}
 
