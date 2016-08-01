@@ -47,9 +47,29 @@ if ( ! class_exists( 'PAnD' ) ) {
 	class PAnD {
 
 		/**
-		 * PAnD constructor.
+		 * Singleton variable.
+		 *
+		 * @var bool
 		 */
-		public function __construct() {
+		private static $instance = false;
+
+		/**
+		 * Singleton.
+		 *
+		 * @return bool|\PAnD
+		 */
+		public static function instance() {
+			if ( false === self::$instance ) {
+				self::$instance = new self();
+			}
+
+			return self::$instance;
+		}
+
+		/**
+		 * Init hooks.
+		 */
+		public function init() {
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_script' ) );
 			add_action( 'wp_ajax_dismiss_admin_notice', array( $this, 'dismiss_admin_notice' ) );
 		}
@@ -119,5 +139,3 @@ if ( ! class_exists( 'PAnD' ) ) {
 	}
 
 }
-
-new PAnD();

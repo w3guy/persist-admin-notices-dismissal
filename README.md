@@ -53,9 +53,7 @@ When using the framework with an autoloader you **must** also load the class out
 Add the following in your plugin.
 
 ```
-add_action( 'admin_init', function() {
-	new PAnD();
-});
+add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
 ```
  
 **Note:** the `data-dismissible` attribute must have a unique hyphen separated text prefixed by `data-` which will serve as the key or option name used by the Options API to persist the state to the database. Don't understand, see the following examples.
@@ -84,9 +82,7 @@ function sample_admin_notice__success1() {
 	<?php
 }
 
-add_action( 'admin_init', function() {
-	new PAnD();
-});
+add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
 add_action( 'admin_notices', 'sample_admin_notice__success1' );
 ```
 
@@ -104,9 +100,7 @@ function sample_admin_notice__success2() {
 	<?php
 }
 
-add_action( 'admin_init', function() {
-	new PAnD();
-});
+add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
 add_action( 'admin_notices', 'sample_admin_notice__success2' );
 ```
 
