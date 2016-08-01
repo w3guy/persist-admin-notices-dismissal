@@ -50,7 +50,7 @@ add_action( 'admin_notices', 'sample_admin_notice__success' );
 ## Autoloaders
 When using the framework with an autoloader you **must** also load the class outside of the `admin_notices` or `network_admin_notices` hooks. The reason is that these hooks come after the `admin_enqueue_script` hook that loads the javascript.
 
-Add the following in your plugin.
+Add the following in your main plugin.
 
 ```
 add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
