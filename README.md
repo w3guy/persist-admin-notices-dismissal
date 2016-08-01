@@ -47,7 +47,17 @@ function sample_admin_notice__success() {
 add_action( 'admin_notices', 'sample_admin_notice__success' );
 ```
 
+## Autoloaders
+When using the framework with an autoloader you **must** also load the class outside of the `admin_notices` or `network_admin_notices` hooks. The reason is that these hooks come after the `admin_enqueue_script` hook that loads the javascript.
 
+Add the following in your plugin.
+
+```
+add_action( 'admin_init', function() {
+	new PAnD();
+});
+```
+ 
 **Note:** the `data-dismissible` attribute must have a unique hyphen separated text prefixed by `data-` which will serve as the key or option name used by the Options API to persist the state to the database. Don't understand, see the following examples.
 
 #### Examples
@@ -73,6 +83,10 @@ function sample_admin_notice__success1() {
 	</div>
 	<?php
 }
+
+add_action( 'admin_init', function() {
+	new PAnD();
+});
 add_action( 'admin_notices', 'sample_admin_notice__success1' );
 ```
 
@@ -89,6 +103,10 @@ function sample_admin_notice__success2() {
 	</div>
 	<?php
 }
+
+add_action( 'admin_init', function() {
+	new PAnD();
+});
 add_action( 'admin_notices', 'sample_admin_notice__success2' );
 ```
 
