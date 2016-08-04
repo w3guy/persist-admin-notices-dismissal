@@ -97,6 +97,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 
 		/**
 		 * Handles Ajax request to persist notices dismissal.
+		 * Uses check_ajax_referer to verify nonce.
 		 */
 		public function dismiss_admin_notice() {
 			$option_name        = sanitize_text_field( $_POST['option_name'] );
@@ -106,7 +107,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 				$dismissible_length = strtotime( absint( $dismissible_length ) . ' days' );
 			}
 
-			check_ajax_referer( 'PAnD-dismissible-notice', 'nonce', true );
+			check_ajax_referer( 'PAnD-dismissible-notice', 'nonce' );
 			update_option( $option_name, $dismissible_length );
 			wp_die();
 		}
@@ -122,8 +123,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 			$array       = explode( '-', $arg );
 			$length      = array_pop( $array );
 			$option_name = implode( '-', $array );
-
-			$db_record = get_option( $option_name );
+			$db_record   = get_option( $option_name );
 
 			if ( 'forever' == $db_record ) {
 				return false;
