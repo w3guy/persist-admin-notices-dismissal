@@ -57,7 +57,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 		/**
 		 * Enqueue javascript and variables.
 		 */
-		public function load_script() {
+		public static function load_script() {
 			wp_enqueue_script(
 				'dismissible-notices',
 				plugins_url( 'dismiss-notice.js', __FILE__ ),
@@ -79,7 +79,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 		 * Handles Ajax request to persist notices dismissal.
 		 * Uses check_ajax_referer to verify nonce.
 		 */
-		public function dismiss_admin_notice() {
+		public static function dismiss_admin_notice() {
 			$option_name        = sanitize_text_field( $_POST['option_name'] );
 			$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
 
