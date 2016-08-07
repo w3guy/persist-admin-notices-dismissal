@@ -11,7 +11,7 @@ Run `composer require collizo4sky/persist-admin-notices-dismissal`
 Alternatively, clone or download this repo into the `vendor/` folder in your plugin, and include/require the `persist-admin-notices-dismissal.php` file like so
 
 ```
-include  __DIR__ . '/vendor/persist-admin-notices-dismissal/persist-admin-notices-dismissal.php'
+require  __DIR__ . '/vendor/persist-admin-notices-dismissal/persist-admin-notices-dismissal.php'
 add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
 ```
 
@@ -72,7 +72,7 @@ To actually make the dismissed admin notice not to appear, use the `is_admin_not
 
 ```
 function sample_admin_notice__success1() {
-	if ( ! PAnD::instance()->is_admin_notice_active( 'data-notice-one-forever' ) ) {
+	if ( ! PAnD::is_admin_notice_active( 'data-notice-one-forever' ) ) {
 		return;
 	}
 
@@ -89,7 +89,7 @@ add_action( 'admin_notices', 'sample_admin_notice__success1' );
 
 ```
 function sample_admin_notice__success2() {
-	if ( ! PAnD::instance()->is_admin_notice_active( 'data-notice-two-2' ) ) {
+	if ( ! PAnD::is_admin_notice_active( 'data-notice-two-2' ) ) {
 		return;
 	}
 
