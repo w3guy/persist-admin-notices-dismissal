@@ -83,11 +83,6 @@ function sample_admin_notice__success1() {
 	<?php
 }
 
-add_action( 'admin_init', array( 'PAnD', 'init' ) );
-add_action( 'admin_notices', 'sample_admin_notice__success1' );
-```
-
-```
 function sample_admin_notice__success2() {
 	if ( ! PAnD::is_admin_notice_active( 'data-notice-two-2' ) ) {
 		return;
@@ -101,6 +96,7 @@ function sample_admin_notice__success2() {
 }
 
 add_action( 'admin_init', array( 'PAnD', 'init' ) );
+add_action( 'admin_notices', 'sample_admin_notice__success1' );
 add_action( 'admin_notices', 'sample_admin_notice__success2' );
 ```
 
