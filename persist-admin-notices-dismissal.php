@@ -47,26 +47,6 @@ if ( ! class_exists( 'PAnD' ) ) {
 	class PAnD {
 
 		/**
-		 * Singleton variable.
-		 *
-		 * @var bool
-		 */
-		private static $instance = false;
-
-		/**
-		 * Singleton.
-		 *
-		 * @return bool|\PAnD
-		 */
-		public static function instance() {
-			if ( false === self::$instance ) {
-				self::$instance = new self();
-			}
-
-			return self::$instance;
-		}
-
-		/**
 		 * Init hooks.
 		 */
 		public function init() {
