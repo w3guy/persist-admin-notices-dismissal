@@ -49,9 +49,9 @@ if ( ! class_exists( 'PAnD' ) ) {
 		/**
 		 * Init hooks.
 		 */
-		public function init() {
-			add_action( 'admin_enqueue_scripts', array( $this, 'load_script' ) );
-			add_action( 'wp_ajax_dismiss_admin_notice', array( $this, 'dismiss_admin_notice' ) );
+		public static function init() {
+			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'load_script' ) );
+			add_action( 'wp_ajax_dismiss_admin_notice', array( __CLASS__, 'dismiss_admin_notice' ) );
 		}
 
 		/**

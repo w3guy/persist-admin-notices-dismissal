@@ -12,7 +12,7 @@ Alternatively, clone or download this repo into the `vendor/` folder in your plu
 
 ```
 require  __DIR__ . '/vendor/persist-admin-notices-dismissal/persist-admin-notices-dismissal.php'
-add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
+add_action( 'admin_init', array( 'PAnD', 'init' ) );
 ```
 
 or let Composer's autoloader do the work.
@@ -45,7 +45,7 @@ function sample_admin_notice__success() {
 	</div>
 	<?php
 }
-add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
+add_action( 'admin_init', array( 'PAnD', 'init' ) );
 add_action( 'admin_notices', 'sample_admin_notice__success' );
 ```
 
@@ -55,7 +55,7 @@ When using the framework with an autoloader you **must** also load the class out
 Just add the following in your main plugin file.
 
 ```
-add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
+add_action( 'admin_init', array( 'PAnD', 'init' ) );
 ```
  
 **Note:** the `data-dismissible` attribute must have a unique hyphen separated text prefixed by `data-` which will serve as the key or option name used by the Options API to persist the state to the database. Don't understand, see the following examples.
@@ -83,7 +83,7 @@ function sample_admin_notice__success1() {
 	<?php
 }
 
-add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
+add_action( 'admin_init', array( 'PAnD', 'init' ) );
 add_action( 'admin_notices', 'sample_admin_notice__success1' );
 ```
 
@@ -100,7 +100,7 @@ function sample_admin_notice__success2() {
 	<?php
 }
 
-add_action( 'admin_init', array( PAnD::instance(), 'init' ) );
+add_action( 'admin_init', array( 'PAnD', 'init' ) );
 add_action( 'admin_notices', 'sample_admin_notice__success2' );
 ```
 
