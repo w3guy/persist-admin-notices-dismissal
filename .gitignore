@@ -1,3 +1,2 @@
-/vendor/
 .idea/*
-index.php
+vendor/*

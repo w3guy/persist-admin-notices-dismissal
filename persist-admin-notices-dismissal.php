@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Persist Admin notices Dismissal
  *
@@ -18,67 +19,129 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package Persist Admin notices Dismissal
- * @author Agbonghama Collins
+ * @author  Agbonghama Collins
+ * @author  Andy Fragen
  * @license http://www.gnu.org/licenses GNU General Public License
+ * @version 1.0.0
  */
-
-
-add_action('admin_enqueue_scripts', function () {
-    wp_enqueue_script('dismissible-notices',
-        plugin_dir_url(__FILE__) . 'dismiss-notice.js',
-        ['jquery', 'common'],
-        false,
-        true
-    );
-
-    wp_localize_script('dismissible-notices', 'dismissible_notice',
-        array(
-            'nonce' => wp_create_nonce('dismissible-notice'),
-        )
-    );
-});
-
 
 /**
- * Handles Ajax request to persist notices dismissal.
+ * Exit if called directly.
  */
-add_action('wp_ajax_dismiss_admin_notice', function () {
-    $option_name        = sanitize_text_field($_POST['option_name']);
-    $dismissible_length = sanitize_text_field($_POST['dismissible_length']);
-
-    if ($dismissible_length != 'forever') {
-        $dismissible_length = time() + strtotime(absint($dismissible_length) . 'days');
-    }
-
-    if (wp_verify_nonce($_REQUEST['nonce'], 'pp-dismissible-notice') && strpos($option_name, 'data-') !== false) {
-        add_option($option_name, $dismissible_length);
-    }
-
-    add_option($option_name, $dismissible_length);
-    wp_die();
-});
-
-
-/**
- * Is admin notice active?
- *
- * @param string $arg
- *
- * @return bool
- */
-function is_admin_notice_active($arg)
-{
-    $array       = explode('-', $arg);
-    $length      = array_pop($array);
-    $option_name = implode('-', $array);
-
-    $db_record = get_option($option_name);
-
-    if ($db_record == 'forever') {
-        return false;
-    } elseif (absint($db_record) >= time()) {
-        return false;
-    } else {
-        return true;
-    }
+if (!defined('WPINC')) {
+    die;
 }
+
+/**
+ * Don't run during heartbeat.
+ */
+if (isset($_REQUEST['action']) && 'heartbeat' === $_REQUEST['action']) {
+    return;
+}
+
+if (!class_exists('PAnD')) {
+
+    /**
+     * Class PAnD
+     */
+    class PAnD
+    {
+
+        /**
+         * Singleton variable.
+         *
+         * @var bool
+         */
+        private static $instance = false;
+
+
+        /**
+         * Singleton.
+         *
+         * @return bool|\PAnD
+         */
+        public static function instance()
+        {
+            if (false === self::$instance) {
+                self::$instance = new self();
+            }
+            return self::$instance;
+        }
+
+        /**
+         * Init hooks.
+         */
+        public function __construct()
+        {
+            add_action('admin_enqueue_scripts', array($this, 'load_script'));
+            add_action('wp_ajax_dismiss_admin_notice', array($this, 'dismiss_admin_notice'));
+        }
+
+        /**
+         * Enqueue javascript and variables.
+         */
+        public function load_script()
+        {
+            wp_enqueue_script(
+                'dismissible-notices',
+                plugins_url('dismiss-notice.js', __FILE__),
+                array('jquery', 'common'),
+                false,
+                true
+            );
+
+            wp_localize_script(
+                'dismissible-notices',
+                'dismissible_notice',
+                array(
+                    'nonce' => wp_create_nonce('PAnD-dismissible-notice'),
+                )
+            );
+        }
+
+        /**
+         * Handles Ajax request to persist notices dismissal.
+         * Uses check_ajax_referer to verify nonce.
+         */
+        public function dismiss_admin_notice()
+        {
+            $option_name = sanitize_text_field($_POST['option_name']);
+            $dismissible_length = sanitize_text_field($_POST['dismissible_length']);
+
+            if ('forever' != $dismissible_length) {
+                $dismissible_length = strtotime(absint($dismissible_length) . ' days');
+            }
+
+            check_ajax_referer('PAnD-dismissible-notice', 'nonce');
+            update_option($option_name, $dismissible_length);
+            wp_die();
+        }
+
+        /**
+         * Is admin notice active?
+         *
+         * @param string $arg data-dismissible content of notice.
+         *
+         * @return bool
+         */
+        public static function is_admin_notice_active($arg)
+        {
+            $array = explode('-', $arg);
+            $length = array_pop($array);
+            $option_name = implode('-', $array);
+            $db_record = get_option($option_name);
+
+            if ('forever' == $db_record) {
+                return false;
+            } elseif (absint($db_record) >= time()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+    }
+
+}
+
+add_action('plugins_loaded', array('PAnD', 'instance'));
