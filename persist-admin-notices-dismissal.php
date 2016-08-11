@@ -100,9 +100,13 @@ if ( ! class_exists( 'PAnD' ) ) {
 		 * @return bool
 		 */
 		public static function is_admin_notice_active( $arg ) {
-			$array       = explode( '-', $arg );
-			$length      = array_pop( $array );
-			$option_name = implode( '-', $array );
+			if (strpos($arg,'-')) {
+				$array       = explode( '-', $arg );
+				$length      = array_pop( $array );
+				$option_name = implode( '-', $array );
+			} else {
+				$option_name = $arg;
+			}
 			$db_record   = get_option( $option_name );
 
 			if ( 'forever' == $db_record ) {
