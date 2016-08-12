@@ -70,7 +70,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 				'dismissible-notices',
 				'dismissible_notice',
 				array(
-					'nonce' => wp_create_nonce( 'PAnD-dismissible-notice' ),
+					'nonce' => wp_create_nonce( 'dismissible-notice' ),
 				)
 			);
 		}
@@ -89,8 +89,8 @@ if ( ! class_exists( 'PAnD' ) ) {
 				$dismissible_length = strtotime( absint( $dismissible_length ) . ' days' );
 			}
 
-			check_ajax_referer( 'PAnD-dismissible-notice', 'nonce' );
 			set_site_transient( md5( AUTH_COOKIE . $option_name ), $dismissible_length, $transient );
+			check_ajax_referer( 'dismissible-notice', 'nonce' );
 			wp_die();
 		}
 
