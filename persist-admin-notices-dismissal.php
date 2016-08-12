@@ -82,15 +82,15 @@ if ( ! class_exists( 'PAnD' ) ) {
 		public static function dismiss_admin_notice() {
 			$option_name        = sanitize_text_field( $_POST['option_name'] );
 			$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
-			$transient = 0;
+			$transient          = 0;
 
 			if ( 'forever' != $dismissible_length ) {
-				$transient = $dismissible_length * DAY_IN_SECONDS;
+				$transient          = $dismissible_length * DAY_IN_SECONDS;
 				$dismissible_length = strtotime( absint( $dismissible_length ) . ' days' );
 			}
 
-			set_site_transient( md5( AUTH_COOKIE . $option_name ), $dismissible_length, $transient );
 			check_ajax_referer( 'dismissible-notice', 'nonce' );
+			set_site_transient( $option_name, $dismissible_length, $transient );
 			wp_die();
 		}
 
@@ -105,7 +105,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 			$array       = explode( '-', $arg );
 			$length      = array_pop( $array );
 			$option_name = implode( '-', $array );
-			$db_record   = get_site_transient( md5( AUTH_COOKIE . $option_name ) );
+			$db_record   = get_site_transient( $option_name );
 
 			if ( 'forever' == $db_record ) {
 				return false;
