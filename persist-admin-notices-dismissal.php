@@ -85,7 +85,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 			$transient          = 0;
 
 			if ( 'forever' != $dismissible_length ) {
-				$transient          = $dismissible_length * DAY_IN_SECONDS;
+				$transient          = absint( $dismissible_length ) * DAY_IN_SECONDS;
 				$dismissible_length = strtotime( absint( $dismissible_length ) . ' days' );
 			}
 

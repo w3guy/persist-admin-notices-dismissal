@@ -69,7 +69,7 @@ To make the first notice never appear once dismissed, its `data-dismissible` att
 
 To make the second notice only hidden for 2 days, its `data-dismissible` attribute will be `data-dismissible="notice-two-2"` where `notice-two` is its unique identifier and the `2`, the number of days it will be hidden is the dismissal time period.
 
-You **must** append the dismissal time period to the end of your unique identifier with a hyphen (`-`).
+You **must** append the dismissal time period to the end of your unique identifier with a hyphen (`-`) and this value must be an integer. The only exception is the string `forever`.
 
 To actually make the dismissed admin notice not to appear, use the `is_admin_notice_active()` function like so:
 
