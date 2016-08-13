@@ -62,12 +62,14 @@ Just add the following in your main plugin file.
 add_action( 'admin_init', array( 'PAnD', 'init' ) );
 ```
  
-#### Examples
-Say you have two notices displayed when certain actions are triggered; firstly, choose a string to uniquely identify them, e.g. `notice-one` and `notice-two`
+#### Usage Instructions and Examples
+If you have two notices displayed when certain actions are triggered; firstly, choose a string to uniquely identify them, e.g. `notice-one` and `notice-two`
 
-To make the first notice never appear forever when dismissed, its `data-dismissible` attribute will be `data-dismissible="notice-one-forever"` where `notice-one` is its unique identifier.
+To make the first notice never appear once dismissed, its `data-dismissible` attribute will be `data-dismissible="notice-one-forever"` where `notice-one` is its unique identifier and `forever` is the dismissal time period.
 
-To make the second notice only hidden for 2 days, its `data-dismissible` attribute will be `data-dismissible="notice-two-2"` where `notice-two` is its unique identifier and the `2` the number of days it will be hidden.
+To make the second notice only hidden for 2 days, its `data-dismissible` attribute will be `data-dismissible="notice-two-2"` where `notice-two` is its unique identifier and the `2`, the number of days it will be hidden is the dismissal time period.
+
+You **must** append the dismissal time period to the end of your unique identifier with a hyphen (`-`).
 
 To actually make the dismissed admin notice not to appear, use the `is_admin_notice_active()` function like so:
 
