@@ -85,6 +85,8 @@ if ( ! class_exists( 'PAnD' ) ) {
 			$transient          = 0;
 
 			if ( 'forever' != $dismissible_length ) {
+				// If $dismissible_length is not an integer default to 1
+				$dismissible_length = ( 0 == absint( $dismissible_length ) ) ? 1 : $dismissible_length;
 				$transient          = absint( $dismissible_length ) * DAY_IN_SECONDS;
 				$dismissible_length = strtotime( absint( $dismissible_length ) . ' days' );
 			}
