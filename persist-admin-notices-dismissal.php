@@ -40,16 +40,6 @@ if ( ! class_exists( 'PAnD' ) ) {
 	class PAnD {
 
 		/**
-		 * PAnD constructor.
-		 */
-		public function __construct() {
-			// Don't run during heartbeat.
-			if ( isset( $_REQUEST['action'] ) && 'heartbeat' === $_REQUEST['action'] ) {
-				return;
-			}
-		}
-
-		/**
 		 * Init hooks.
 		 */
 		public static function init() {
