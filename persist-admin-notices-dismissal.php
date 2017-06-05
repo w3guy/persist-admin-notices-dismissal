@@ -25,13 +25,6 @@
  * @version 1.3
  */
 
-/**
- * Exit if called directly.
- */
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
-
 if ( ! class_exists( 'PAnD' ) ) {
 
 	/**
