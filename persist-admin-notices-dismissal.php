@@ -22,13 +22,13 @@
  * @author  Agbonghama Collins
  * @author  Andy Fragen
  * @license http://www.gnu.org/licenses GNU General Public License
- * @version 1.3
+ * @version 1.3.2
  */
 
 /**
  * Exit if called directly.
  */
-if ( ! defined( 'WPINC' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
