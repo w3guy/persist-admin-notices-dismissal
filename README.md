@@ -42,7 +42,7 @@ function sample_admin_notice__success() {
 	if ( ! PAnD::is_admin_notice_active( 'disable-done-notice-forever' ) ) {
 		return;
 	}
-	
+
 	?>
 	<div data-dismissible="disable-done-notice-forever" class="updated notice notice-success is-dismissible">
 		<p><?php _e( 'Done!', 'sample-text-domain' ); ?></p>
@@ -61,7 +61,7 @@ Just add the following in your main plugin file.
 ```php
 add_action( 'admin_init', array( 'PAnD', 'init' ) );
 ```
- 
+
 #### Usage Instructions and Examples
 If you have two notices displayed when certain actions are triggered; firstly, choose a string to uniquely identify them, e.g. `notice-one` and `notice-two`
 
