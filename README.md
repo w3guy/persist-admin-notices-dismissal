@@ -104,6 +104,6 @@ add_action( 'admin_notices', 'sample_admin_notice__success1' );
 add_action( 'admin_notices', 'sample_admin_notice__success2' );
 ```
 
-Please note that if you cleanup after your plugin deletion please try to make the removal of stored options as specific as possible. Otherwise you may end up deleting the storted options from other projects.
+Please note that if you cleanup after your plugin deletion please try to make the removal of stored options as specific as possible. Otherwise you may end up deleting the stored options from other projects.
 
 Cool beans. Isn't it?
