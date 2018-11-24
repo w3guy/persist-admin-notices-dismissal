@@ -8,7 +8,7 @@
         }
     ],
     "autoload": {
-        "files": [
+        "classmap": [
             "persist-admin-notices-dismissal.php"
         ]
     }
