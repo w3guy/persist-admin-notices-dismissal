@@ -62,6 +62,8 @@ if ( ! class_exists( 'PAnD' ) ) {
 			/**
 			 * Filter dismiss-notice.js URL.
 			 *
+			 * @since 1.4.3
+			 *
 			 * @param string $js_url URL to the Javascript file.
 			 * @param string $composer_path Relative path of Javascript file from composer install.
 			 */
