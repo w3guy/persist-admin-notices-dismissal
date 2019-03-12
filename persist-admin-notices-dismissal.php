@@ -45,6 +45,24 @@ if ( ! class_exists( 'PAnD' ) ) {
 		public static function init() {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'load_script' ) );
 			add_action( 'wp_ajax_dismiss_admin_notice', array( __CLASS__, 'dismiss_admin_notice' ) );
+
+			/**
+			 * Filter to activate another filter providing a simpler use case.
+			 *
+			 * @since 1.4.3
+			 *
+			 * @param bool
+			 */
+			if ( apply_filters( 'pand_theme_loader', false ) ) {
+				add_filter(
+					'pand_dismiss_notice_js_url',
+					function( $js_url, $composer_path ) {
+						return get_stylesheet_directory_uri() . $composer_path;
+					},
+					10,
+					2
+				);
+			}
 		}
 
 		/**
