@@ -22,7 +22,7 @@
  * @author  Collins Agbonghama
  * @author  Andy Fragen
  * @license http://www.gnu.org/licenses GNU General Public License
- * @version 1.4.2
+ * @version 1.4.3
  */
 
 /**
@@ -56,9 +56,19 @@ if ( ! class_exists( 'PAnD' ) ) {
 				return;
 			}
 
+			$js_url        = plugins_url( 'dismiss-notice.js', __FILE__ );
+			$composer_path = '/vendor/collizo4sky/persist-admin-notices-dismissal/dismiss-notice.js';
+
+			/**
+			 * Filter dismiss-notice.js URL.
+			 *
+			 * @param string $js_url URL to the Javascript file.
+			 * @param string $composer_path Relative path of Javascript file from composer install.
+			 */
+			$js_url = apply_filters( 'pand_dismiss_notice_js_url', $js_url, $composer_path );
 			wp_enqueue_script(
 				'dismissible-notices',
-				plugins_url( 'dismiss-notice.js', __FILE__ ),
+				$js_url,
 				array( 'jquery', 'common' ),
 				false,
 				true

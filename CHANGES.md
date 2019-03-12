@@ -1,3 +1,6 @@
+#### 1.4.3
+* added filter hook `pand_dismiss_notice_js_url` in case you're using this in a theme or a local environment that doesn't quite find the correct URL
+
 #### 1.4.2
 * No changes to `class PAnD`
 * updated `.gitignore` and `.gitattributes`
