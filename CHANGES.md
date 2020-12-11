@@ -1,3 +1,6 @@
+#### 1.4.4
+* update `dismiss-notice.js` for jQuery deprecation notice [#30](https://github.com/w3guy/persist-admin-notices-dismissal/issues/30)
+
 #### 1.4.3
 * added filter hook `pand_dismiss_notice_js_url` in case you're using this in a theme or a local environment that doesn't quite find the correct URL.
 * added filter hook `pand_theme_loader` that returns a boolean for simpler usage of the `pand_dismiss_notice_js_url` hook
