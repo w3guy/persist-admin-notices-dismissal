@@ -89,7 +89,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 				'dismissible-notices',
 				$js_url,
 				array( 'jquery', 'common' ),
-				false,
+				'1.4.4',
 				true
 			);
 
@@ -107,8 +107,8 @@ if ( ! class_exists( 'PAnD' ) ) {
 		 * Uses check_ajax_referer to verify nonce.
 		 */
 		public static function dismiss_admin_notice() {
-			$option_name        = sanitize_text_field( $_POST['option_name'] );
-			$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
+			$option_name        = !empty( $_POST['option_name'] ) ? sanitize_text_field( $_POST['option_name'] ) : '';
+			$dismissible_length = !empty( $_POST['dismissible_length'] ) ? sanitize_text_field( $_POST['dismissible_length'] ) : '';
 
 			if ( 'forever' != $dismissible_length ) {
 				// If $dismissible_length is not an integer default to 1
