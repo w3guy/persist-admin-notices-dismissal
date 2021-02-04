@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Persist Admin notices Dismissal
  *
@@ -19,8 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package Persist Admin notices Dismissal
- * @author  Collins Agbonghama
- * @author  Andy Fragen
+ * @author  Collins Agbonghama, Andy Fragen
  * @license http://www.gnu.org/licenses GNU General Public License
  */
 
@@ -107,12 +105,12 @@ if ( ! class_exists( 'PAnD' ) ) {
 		 * Uses check_ajax_referer to verify nonce.
 		 */
 		public static function dismiss_admin_notice() {
-			$option_name        = sanitize_text_field( $_POST['option_name'] );
-			$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
+			$option_name        = isset( $_POST['option_name'] ) ? sanitize_text_field( wp_unslash( $_POST['option_name'] ) ) : '';
+			$dismissible_length = isset( $_POST['dismissible_length'] ) ? sanitize_text_field( wp_unslash( $_POST['dismissible_length'] ) ) : 0;
 
-			if ( 'forever' != $dismissible_length ) {
-				// If $dismissible_length is not an integer default to 1
-				$dismissible_length = ( 0 == absint( $dismissible_length ) ) ? 1 : $dismissible_length;
+			if ( 'forever' !== $dismissible_length ) {
+				// If $dismissible_length is not an integer default to 1.
+				$dismissible_length = ( 0 === absint( $dismissible_length ) ) ? 1 : $dismissible_length;
 				$dismissible_length = strtotime( absint( $dismissible_length ) . ' days' );
 			}
 
@@ -134,7 +132,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 			$option_name = implode( '-', $array );
 			$db_record   = self::get_admin_notice_cache( $option_name );
 
-			if ( 'forever' == $db_record ) {
+			if ( 'forever' === $db_record ) {
 				return false;
 			} elseif ( absint( $db_record ) >= time() ) {
 				return false;
