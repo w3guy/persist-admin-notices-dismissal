@@ -110,9 +110,9 @@ if ( ! class_exists( 'PAnD' ) ) {
 			$option_name        = sanitize_text_field( $_POST['option_name'] );
 			$dismissible_length = sanitize_text_field( $_POST['dismissible_length'] );
 
-			if ( 'forever' != $dismissible_length ) {
+			if ( 'forever' !== $dismissible_length ) {
 				// If $dismissible_length is not an integer default to 1
-				$dismissible_length = ( 0 == absint( $dismissible_length ) ) ? 1 : $dismissible_length;
+				$dismissible_length = ( 0 === absint( $dismissible_length ) ) ? 1 : $dismissible_length;
 				$dismissible_length = strtotime( absint( $dismissible_length ) . ' days' );
 			}
 
@@ -134,7 +134,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 			$option_name = implode( '-', $array );
 			$db_record   = self::get_admin_notice_cache( $option_name );
 
-			if ( 'forever' == $db_record ) {
+			if ( 'forever' === $db_record ) {
 				return false;
 			} elseif ( absint( $db_record ) >= time() ) {
 				return false;
