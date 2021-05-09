@@ -1,3 +1,6 @@
+#### 1.4.5
+* WPCS fixes.
+
 #### 1.4.4
 * Added support for extra dismissible links via `.dismiss-this` CSS class.
 
