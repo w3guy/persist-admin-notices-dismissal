@@ -87,7 +87,7 @@ if ( ! class_exists( 'PAnD' ) ) {
 				'dismissible-notices',
 				$js_url,
 				array( 'jquery', 'common' ),
-				false,
+				'1.4.5',
 				true
 			);
 
